@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STILLSET9 · Gaming sin filtros</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --void: #0a0a0f;
+      --deep: #0f0f1a;
+      --panel: #13131f;
+      --violet: #9b5de5;
+      --violet-glow: rgba(155, 93, 229, 0.35);
+      --cyan: #00f5ff;
+      --cyan-glow: rgba(0, 245, 255, 0.25);
+      --magenta: #ff006e;
+      --magenta-glow: rgba(255, 0, 110, 0.3);
+      --gold: #f9c74f;
+      --text: #e8e8f0;
+      --muted: #6b6b8a;
+      --twitch: #9146ff;
+      --insta: #e1306c;
+      --tiktok-blue: #00f2ea;
+      --tiktok-red: #ff0050;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--void);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ─── CANVAS STARS ─── */
+    #stars-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ─── SCANLINE OVERLAY ─── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 2rem 2rem;
+      z-index: 1;
+    }
+
+    .hero-bg-gradient {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(155,93,229,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(0,245,255,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 80% 70%, rgba(255,0,110,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      margin-bottom: 2rem;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: conic-gradient(var(--violet), var(--cyan), var(--magenta), var(--violet));
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .avatar-img {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: url('https://static-cdn.jtvnw.net/jtv_user_pictures/1c9f095d-a707-476a-b3a9-ff81b37f5155-profile_image-300x300.png') center/cover;
+      border: 4px solid var(--void);
+      z-index: 1;
+    }
+
+    .live-badge {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      background: var(--magenta);
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.1em;
+      z-index: 2;
+      animation: pulse-badge 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse-badge {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,0,110,0.7); }
+      50% { box-shadow: 0 0 0 8px rgba(255,0,110,0); }
+    }
+
+    .hero-eyebrow {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.35em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      opacity: 0.85;
+    }
+
+    .hero-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 900;
+      line-height: 0.9;
+      background: linear-gradient(135deg, var(--violet) 0%, var(--cyan) 50%, var(--magenta) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+      animation: glitch 6s infinite;
+    }
+
+    .hero-name::before,
+    .hero-name::after {
+      content: 'STILLSET9';
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-name::before {
+      animation: glitch-top 6s infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 40%, 0 40%);
+    }
+
+    .hero-name::after {
+      animation: glitch-bottom 6s infinite;
+      clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+    }
+
+    @keyframes glitch {
+      0%, 92%, 100% { transform: none; filter: none; }
+      93% { transform: skewX(-1deg); filter: hue-rotate(30deg); }
+      94% { transform: skewX(1deg); filter: hue-rotate(-30deg); }
+      95% { transform: none; }
+    }
+
+    @keyframes glitch-top {
+      0%, 92%, 100% { transform: none; opacity: 0; }
+      93% { transform: translate(-4px, -2px); opacity: 0.7; }
+      94% { transform: translate(4px, 0); opacity: 0.5; }
+      95% { opacity: 0; }
+    }
+
+    @keyframes glitch-bottom {
+      0%, 92%, 100% { transform: none; opacity: 0; }
+      93% { transform: translate(4px, 2px); opacity: 0.6; }
+      94% { transform: translate(-4px, 0); opacity: 0.4; }
+      95% { opacity: 0; }
+    }
+
+    .hero-tagline {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-weight: 300;
+      color: var(--muted);
+      margin-top: 1.2rem;
+      letter-spacing: 0.05em;
+      max-width: 480px;
+    }
+
+    .hero-tagline strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-games {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.8rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .game-pill {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: all 0.3s;
+    }
+
+    .game-pill:hover {
+      border-color: var(--violet);
+      color: var(--violet);
+      background: var(--violet-glow);
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: white;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .btn:hover::before { opacity: 0.08; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--violet), #7a3fc5);
+      color: white;
+      box-shadow: 0 0 24px var(--violet-glow), 0 4px 16px rgba(0,0,0,0.5);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px var(--violet-glow), 0 8px 24px rgba(0,0,0,0.5);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--cyan);
+      border: 1.5px solid var(--cyan);
+      box-shadow: 0 0 16px var(--cyan-glow);
+    }
+
+    .btn-ghost:hover {
+      background: var(--cyan-glow);
+      transform: translateY(-2px);
+      box-shadow: 0 0 32px var(--cyan-glow);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    .scroll-hint svg { opacity: 0.5; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ─── SECTION BASE ─── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 1.5rem;
+    }
+
+    .section-label {
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      color: var(--violet);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 480px;
+      margin: 0 auto 3.5rem;
+      line-height: 1.6;
+    }
+
+    /* ─── PLATFORMS ─── */
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .platform-card {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .platform-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.4s;
+      border-radius: inherit;
+    }
+
+    .platform-card.twitch::after {
+      background: radial-gradient(ellipse at top left, rgba(145,70,255,0.12), transparent 60%);
+    }
+
+    .platform-card.insta::after {
+      background: radial-gradient(ellipse at top left, rgba(225,48,108,0.12), transparent 60%);
+    }
+
+    .platform-card.tiktok::after {
+      background: radial-gradient(ellipse at top left, rgba(0,242,234,0.1), transparent 60%);
+    }
+
+    .platform-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      border-color: rgba(255,255,255,0.14);
+    }
+
+    .platform-card:hover::after { opacity: 1; }
+
+    .platform-card.twitch:hover { box-shadow: 0 20px 60px rgba(145,70,255,0.2); }
+    .platform-card.insta:hover  { box-shadow: 0 20px 60px rgba(225,48,108,0.2); }
+    .platform-card.tiktok:hover { box-shadow: 0 20px 60px rgba(0,242,234,0.15); }
+
+    .platform-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .platform-icon.twitch { background: rgba(145,70,255,0.2); }
+    .platform-icon.insta  { background: rgba(225,48,108,0.2); }
+    .platform-icon.tiktok { background: rgba(0,242,234,0.1); }
+
+    .platform-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .platform-handle {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .platform-desc {
+      font-size: 0.88rem;
+      color: rgba(232,232,240,0.7);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .platform-arrow {
+      font-size: 1.2rem;
+      margin-left: auto;
+      transition: transform 0.3s;
+      color: var(--muted);
+    }
+
+    .platform-card:hover .platform-arrow { transform: translate(4px, -4px); color: var(--text); }
+
+    .platform-meta {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .platform-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+    }
+
+    .platform-tag.twitch { background: rgba(145,70,255,0.2); color: var(--twitch); }
+    .platform-tag.insta  { background: rgba(225,48,108,0.2); color: var(--insta); }
+    .platform-tag.tiktok { background: rgba(0,242,234,0.15); color: var(--tiktok-blue); }
+
+    /* ─── SUPPORT ─── */
+    .support-section {
+      background: var(--deep);
+    }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .support-card {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.3s;
+    }
+
+    .support-card:hover {
+      border-color: rgba(155,93,229,0.3);
+      box-shadow: 0 0 40px rgba(155,93,229,0.1);
+      transform: translateY(-4px);
+    }
+
+    .support-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+
+    .support-icon.donate  { background: radial-gradient(135deg, rgba(249,199,79,0.25), rgba(255,0,110,0.1)); }
+    .support-icon.sub     { background: radial-gradient(135deg, rgba(145,70,255,0.25), rgba(0,245,255,0.1)); }
+    .support-icon.follow  { background: radial-gradient(135deg, rgba(0,245,255,0.2), rgba(155,93,229,0.1)); }
+
+    .support-card h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .support-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .btn-donate {
+      background: linear-gradient(135deg, var(--gold), #f77f00);
+      color: #0a0a0f;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(249,199,79,0.3);
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn-donate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px rgba(249,199,79,0.4);
+      filter: brightness(1.1);
+    }
+
+    .btn-sub {
+      background: linear-gradient(135deg, var(--twitch), #7a3fc5);
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+      box-shadow: 0 0 20px rgba(145,70,255,0.35);
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn-sub:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px rgba(145,70,255,0.5);
+    }
+
+    .btn-follow-all {
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--magenta) 100%);
+      color: #0a0a0f;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+      box-shadow: 0 0 20px var(--cyan-glow);
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn-follow-all:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px var(--cyan-glow);
+      filter: brightness(1.05);
+    }
+
+    /* ─── MARQUEE ─── */
+    .marquee-wrap {
+      overflow: hidden;
+      background: var(--panel);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 1rem 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .marquee-inner {
+      display: flex;
+      gap: 3rem;
+      animation: marquee 20s linear infinite;
+      white-space: nowrap;
+      width: max-content;
+    }
+
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    .marquee-item {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .marquee-item .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--violet); display: inline-block; }
+
+    /* ─── VIBES ─── */
+    .vibes-section {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .vibes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .vibe-card {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .vibe-card:hover {
+      border-color: rgba(155,93,229,0.25);
+      background: rgba(155,93,229,0.05);
+    }
+
+    .vibe-emoji { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
+
+    .vibe-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+
+    .vibe-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative;
+      z-index: 1;
+      background: var(--void);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .footer-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--violet), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .footer-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover { color: var(--text); }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(107,107,138,0.5);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--violet), transparent);
+      margin: 0 auto;
+      max-width: 600px;
+    }
+
+    /* ─── VISITOR COUNTER ─── */
+    .visitor-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(155,93,229,0.2);
+      padding: 0.6rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .visitor-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      background: linear-gradient(135deg, var(--violet), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .visitor-count-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .visitor-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+      animation: pulse-green 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.7); }
+      50% { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+    }
+
+    #visitor-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #22c55e;
+    }
+
+    /* ─── STEAM ─── */
+    .platform-card.steam { }
+    .platform-card.steam::after {
+      background: radial-gradient(ellipse at top left, rgba(102,192,244,0.1), transparent 60%);
+    }
+    .platform-card.steam:hover { box-shadow: 0 20px 60px rgba(102,192,244,0.18); }
+    .platform-icon.steam { background: rgba(102,192,244,0.15); }
+    .platform-tag.steam { background: rgba(102,192,244,0.15); color: #66c0f4; }
+
+    /* ─── GAMES SECTION ─── */
+    .games-section {
+      background: var(--deep);
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .game-card {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .game-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(155,93,229,0.25);
+      box-shadow: 0 12px 40px rgba(155,93,229,0.1);
+    }
+
+    .game-card:hover::before { opacity: 1; }
+
+    .game-thumb {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .game-info { flex: 1; min-width: 0; }
+
+    .game-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .game-status {
+      font-size: 0.72rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .game-status-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--violet);
+      flex-shrink: 0;
+    }
+
+    .game-status-dot.recent { background: #22c55e; }
+
+    /* ─── PLAY WITH ME ─── */
+    .playwithme-section {
+      text-align: center;
+    }
+
+    .playwithme-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .playwithme-card {
+      background: var(--panel);
+      border: 1px solid rgba(155,93,229,0.2);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .playwithme-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 0%, rgba(155,93,229,0.12), transparent 70%),
+        radial-gradient(ellipse 40% 40% at 0% 100%, rgba(0,245,255,0.06), transparent 60%);
+      pointer-events: none;
+    }
+
+    .playwithme-emoji {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 1.2rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .playwithme-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--violet), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .playwithme-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .playwithme-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: white;
+      box-shadow: 0 0 24px rgba(37,211,102,0.35);
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-whatsapp:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 48px rgba(37,211,102,0.5);
+      filter: brightness(1.1);
+    }
+
+    .btn-steam-play {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      background: linear-gradient(135deg, #1b2838, #2a475e);
+      color: #66c0f4;
+      border: 1.5px solid rgba(102,192,244,0.3);
+      box-shadow: 0 0 20px rgba(102,192,244,0.15);
+      transition: all 0.3s;
+    }
+
+    .btn-steam-play:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 40px rgba(102,192,244,0.3);
+      border-color: rgba(102,192,244,0.6);
+    }
+
+    .playwithme-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 1rem;
+      opacity: 0.7;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .hero-cta-row { flex-direction: column; align-items: center; }
+      .btn { width: 100%; max-width: 300px; justify-content: center; }
+      .playwithme-btns { flex-direction: column; align-items: center; }
+      .btn-whatsapp, .btn-steam-play { width: 100%; max-width: 300px; justify-content: center; }
+      .visitor-bar { padding: 0.5rem 1rem; }
+    }
+
+    /* ─── FADE IN ─── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ VISITOR COUNTER BAR ═══════════════ -->
+  <div class="visitor-bar">
+    <div class="visitor-logo">STILLSET9</div>
+    <div class="visitor-count-wrap">
+      <div class="visitor-dot"></div>
+      <span id="visitor-num">--</span>
+      <span>personas viendo ahora</span>
+    </div>
+  </div>
+
+  <!-- STARS BACKGROUND -->
+  <canvas id="stars-canvas"></canvas>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section class="hero">
+    <div class="hero-bg-gradient"></div>
+
+    <div class="avatar-wrap fade-in">
+      <div class="avatar-ring"></div>
+      <div class="avatar-img"></div>
+      <span class="live-badge">● LIVE</span>
+    </div>
+
+    <p class="hero-eyebrow fade-in">Streamer · Gamer · Caos en vivo</p>
+
+    <h1 class="hero-name fade-in">STILLSET9</h1>
+
+    <p class="hero-tagline fade-in">
+      <strong>Gaming variado, cero aburrimiento.</strong><br/>
+      Del universo de No Man's Sky a morir por la democracia en Helldivers 2.<br/>Opiniones en el chat: obligatorias.
+    </p>
+
+    <div class="hero-games fade-in">
+      <span class="game-pill">🌌 No Man's Sky</span>
+      <span class="game-pill">💥 Helldivers 2</span>
+      <span class="game-pill">🎮 Gaming Variado</span>
+    </div>
+
+    <div class="hero-cta-row fade-in">
+      <a href="https://www.twitch.tv/stillset9i" target="_blank" class="btn btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/>
+        </svg>
+        Ver en Twitch
+      </a>
+      <a href="https://www.instagram.com/stillset9pro/" target="_blank" class="btn btn-ghost">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        Instagram
+      </a>
+    </div>
+
+    <div class="scroll-hint">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+      scroll
+    </div>
+  </section>
+
+  <!-- ═══════════════ MARQUEE ═══════════════ -->
+  <div class="marquee-wrap">
+    <div class="marquee-inner">
+      <span class="marquee-item"><span class="dot"></span> Twitch · stillset9i</span>
+      <span class="marquee-item"><span class="dot"></span> Gaming variado</span>
+      <span class="marquee-item"><span class="dot"></span> No Man's Sky</span>
+      <span class="marquee-item"><span class="dot"></span> Helldivers 2</span>
+      <span class="marquee-item"><span class="dot"></span> Instagram · stillset9pro</span>
+      <span class="marquee-item"><span class="dot"></span> TikTok · @stillset9</span>
+      <span class="marquee-item"><span class="dot"></span> Risas = sub</span>
+      <span class="marquee-item"><span class="dot"></span> Opiniones obligatorias</span>
+      <!-- repeat for seamless loop -->
+      <span class="marquee-item"><span class="dot"></span> Twitch · stillset9i</span>
+      <span class="marquee-item"><span class="dot"></span> Gaming variado</span>
+      <span class="marquee-item"><span class="dot"></span> No Man's Sky</span>
+      <span class="marquee-item"><span class="dot"></span> Helldivers 2</span>
+      <span class="marquee-item"><span class="dot"></span> Instagram · stillset9pro</span>
+      <span class="marquee-item"><span class="dot"></span> TikTok · @stillset9</span>
+      <span class="marquee-item"><span class="dot"></span> Risas = sub</span>
+      <span class="marquee-item"><span class="dot"></span> Opiniones obligatorias</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ PLATAFORMAS ═══════════════ -->
+  <section>
+    <p class="section-label">Encuéntrame en</p>
+    <h2 class="section-title fade-in">Mis <span style="background:linear-gradient(135deg,var(--violet),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">plataformas</span></h2>
+    <p class="section-sub fade-in">Contenido sin filtros en tres frentes. Sigue en el que más uses — o en los tres.</p>
+
+    <div class="platforms-grid">
+
+      <a href="https://www.twitch.tv/stillset9i" target="_blank" class="platform-card twitch fade-in">
+        <div style="display:flex;align-items:center;gap:1rem;width:100%;">
+          <div class="platform-icon twitch">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#9146ff">
+              <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="platform-name" style="color:var(--twitch)">Twitch</div>
+            <div class="platform-handle">stillset9i</div>
+          </div>
+          <div class="platform-arrow">↗</div>
+        </div>
+        <p class="platform-desc">El cuartel general. Streams en vivo de gaming variado: aventuras espaciales en No Man's Sky, bajas democráticas en Helldivers 2 y lo que se venga. Chat activo, opiniones obligatorias.</p>
+        <div class="platform-meta">
+          <span class="platform-tag twitch">Streams en vivo</span>
+          <span class="platform-tag twitch">Gaming</span>
+          <span class="platform-tag twitch">Chat</span>
+        </div>
+      </a>
+
+      <a href="https://www.instagram.com/stillset9pro/" target="_blank" class="platform-card insta fade-in">
+        <div style="display:flex;align-items:center;gap:1rem;width:100%;">
+          <div class="platform-icon insta">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#e1306c">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="platform-name" style="color:var(--insta)">Instagram</div>
+            <div class="platform-handle">stillset9pro</div>
+          </div>
+          <div class="platform-arrow">↗</div>
+        </div>
+        <p class="platform-desc">Clips, momentos épicos y el detrás de cámara. El lado más visual de la comunidad — stories, reels y todo lo que pasa entre streams.</p>
+        <div class="platform-meta">
+          <span class="platform-tag insta">Clips</span>
+          <span class="platform-tag insta">Reels</span>
+          <span class="platform-tag insta">Comunidad</span>
+        </div>
+      </a>
+
+      <a href="https://www.tiktok.com/@stillset9" target="_blank" class="platform-card tiktok fade-in">
+        <div style="display:flex;align-items:center;gap:1rem;width:100%;">
+          <div class="platform-icon tiktok">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="var(--tiktok-blue)">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.93a8.18 8.18 0 004.78 1.52V7.01a4.85 4.85 0 01-1.01-.32z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="platform-name" style="background:linear-gradient(135deg,var(--tiktok-blue),var(--tiktok-red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">TikTok</div>
+            <div class="platform-handle">@stillset9</div>
+          </div>
+          <div class="platform-arrow">↗</div>
+        </div>
+        <p class="platform-desc">Los mejores momentos del stream en formato corto. Para el que no puede ver horas de gameplay pero no quiere perderse los highlights más locos.</p>
+        <div class="platform-meta">
+          <span class="platform-tag tiktok">Highlights</span>
+          <span class="platform-tag tiktok">Cortos</span>
+          <span class="platform-tag tiktok">Viral</span>
+        </div>
+      </a>
+
+      <a href="https://steamcommunity.com/profiles/76561198394473726" target="_blank" class="platform-card steam fade-in">
+        <div style="display:flex;align-items:center;gap:1rem;width:100%;">
+          <div class="platform-icon steam">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#66c0f4">
+              <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.606 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.455 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.252 0-2.265-1.014-2.265-2.265z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="platform-name" style="color:#66c0f4">Steam</div>
+            <div class="platform-handle">stillset9</div>
+          </div>
+          <div class="platform-arrow">↗</div>
+        </div>
+        <p class="platform-desc">El historial de juegos no miente. Mirá su biblioteca, sus logros y agregalo como amigo para jugar juntos en PC.</p>
+        <div class="platform-meta">
+          <span class="platform-tag steam">PC Gaming</span>
+          <span class="platform-tag steam">Amigos</span>
+          <span class="platform-tag steam">Logros</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="divider" style="margin:0 auto;"></div>
+
+  <!-- ═══════════════ VIBES ═══════════════ -->
+  <section>
+    <div class="vibes-section">
+      <p class="section-label">El ambiente</p>
+      <h2 class="section-title fade-in">¿Qué vas a <span style="background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">encontrar</span>?</h2>
+      <p class="section-sub fade-in">No es solo gaming. Es una experiencia.</p>
+
+      <div class="vibes-grid">
+        <div class="vibe-card fade-in">
+          <span class="vibe-emoji">🌌</span>
+          <div class="vibe-title">Exploración galáctica</div>
+          <div class="vibe-desc">Adentrándose en los rincones más raros del universo de No Man's Sky. Planetas extraños, naves épicas y descubrimientos improbables.</div>
+        </div>
+        <div class="vibe-card fade-in">
+          <span class="vibe-emoji">💥</span>
+          <div class="vibe-title">Caos democrático</div>
+          <div class="vibe-desc">Muriendo heroicamente por la libertad en Helldivers 2. Muchos intentos, mucho fuego amigo y risas garantizadas.</div>
+        </div>
+        <div class="vibe-card fade-in">
+          <span class="vibe-emoji">🎮</span>
+          <div class="vibe-title">Gaming sin límites</div>
+          <div class="vibe-desc">Variedad real. Lo que sea que esté bueno, lo que sea que salga, lo que sea que el chat pida. Sin nicho fijo, sin aburrimiento.</div>
+        </div>
+        <div class="vibe-card fade-in">
+          <span class="vibe-emoji">💬</span>
+          <div class="vibe-title">Chat con alma</div>
+          <div class="vibe-desc">Las opiniones en el chat no son opcionales. La comunidad es parte del show — si no opinas, ¿para qué estás?</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SUPPORT ═══════════════ -->
+  <section class="support-section">
+    <p class="section-label">Apoya el canal</p>
+    <h2 class="section-title fade-in">Hazlo <span style="background:linear-gradient(135deg,var(--gold),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">posible</span></h2>
+    <p class="section-sub fade-in">Cada follow, cada sub, cada donación mantiene el stream vivo. Si te diviertes, devuelve el caos.</p>
+
+    <div class="support-grid">
+
+      <div class="support-card fade-in">
+        <div class="support-icon donate">💰</div>
+        <h3>Donar</h3>
+        <p>Tira unos bits o una donación directa. Apareces en pantalla, se lee en vivo, el streamer te lo agradece en tiempo real.</p>
+        <a href="https://www.twitch.tv/stillset9i" target="_blank" class="btn-donate">
+          ⚡ Donar ahora
+        </a>
+      </div>
+
+      <div class="support-card fade-in">
+        <div class="support-icon sub">⭐</div>
+        <h3>Suscribirse en Twitch</h3>
+        <p>Risas = sub. Esa es la regla. Consigue emotes exclusivos, sin anuncios y apoyas directamente al canal.</p>
+        <a href="https://www.twitch.tv/stillset9i/subscribe" target="_blank" class="btn-sub">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+          Suscribirse
+        </a>
+      </div>
+
+      <div class="support-card fade-in">
+        <div class="support-icon follow">🔔</div>
+        <h3>Seguir en todas partes</h3>
+        <p>La forma más fácil de apoyar: un follow en Twitch, Instagram y TikTok. Un clic, tres plataformas, mucho contenido.</p>
+        <a href="https://www.twitch.tv/stillset9i" target="_blank" class="btn-follow-all">
+          ✦ Seguir todo
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════ ÚLTIMOS JUEGOS ═══════════════ -->
+  <section class="games-section">
+    <p class="section-label">En rotación</p>
+    <h2 class="section-title fade-in">Últimos <span style="background:linear-gradient(135deg,#66c0f4,var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">juegos</span></h2>
+    <p class="section-sub fade-in">Lo que está en la pantalla últimamente. Sin spoilers (o con todos).</p>
+
+    <div class="games-grid">
+
+      <div class="game-card fade-in">
+        <div class="game-thumb">🔫</div>
+        <div class="game-info">
+          <div class="game-title">Call of Duty: BO2</div>
+          <div class="game-status"><span class="game-status-dot recent"></span> Jugando activamente</div>
+        </div>
+      </div>
+
+      <div class="game-card fade-in">
+        <div class="game-thumb">🏎️</div>
+        <div class="game-info">
+          <div class="game-title">Forza Horizon 6</div>
+          <div class="game-status"><span class="game-status-dot recent"></span> Jugando activamente</div>
+        </div>
+      </div>
+
+      <div class="game-card fade-in">
+        <div class="game-thumb">🌌</div>
+        <div class="game-info">
+          <div class="game-title">No Man's Sky</div>
+          <div class="game-status"><span class="game-status-dot"></span> Favorito del canal</div>
+        </div>
+      </div>
+
+      <div class="game-card fade-in">
+        <div class="game-thumb">💥</div>
+        <div class="game-info">
+          <div class="game-title">Helldivers 2</div>
+          <div class="game-status"><span class="game-status-dot"></span> Muerto por la democracia</div>
+        </div>
+      </div>
+
+      <div class="game-card fade-in" style="border-style:dashed;border-color:rgba(155,93,229,0.2);background:transparent;">
+        <div class="game-thumb" style="background:rgba(155,93,229,0.08);">🎮</div>
+        <div class="game-info">
+          <div class="game-title" style="color:var(--muted);">¿Qué sigue?</div>
+          <div class="game-status"><span class="game-status-dot" style="background:var(--muted);"></span> Pídelo en el chat</div>
+        </div>
+      </div>
+
+      <div class="game-card fade-in">
+        <div class="game-thumb">🚀</div>
+        <div class="game-info">
+          <div class="game-title">Gaming Variado</div>
+          <div class="game-status"><span class="game-status-dot recent"></span> Siempre en rotación</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider" style="margin:0 auto;"></div>
+
+  <!-- ═══════════════ JUEGA CONMIGO ═══════════════ -->
+  <section class="playwithme-section">
+    <div class="playwithme-inner">
+      <p class="section-label">¿Te animás?</p>
+      <h2 class="section-title fade-in">Juega <span style="background:linear-gradient(135deg,var(--magenta),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">conmigo</span></h2>
+      <p class="section-sub fade-in">No solo mirés el stream — entrá al juego. Si te animás a dar la cara y competir (o colaborar) mandá un mensaje.</p>
+
+      <div class="playwithme-card fade-in">
+        <span class="playwithme-emoji">🎯</span>
+        <h3 class="playwithme-title">¿Querés jugar?</h3>
+        <p class="playwithme-desc">
+          Abierto a partidas con la comunidad. Ya sea en CoD, Forza, Helldivers o lo que salga — si estás dispuesto a divertirte (y a perder con estilo), escribí por WhatsApp o agregame en Steam.
+        </p>
+        <div class="playwithme-btns">
+          <a href="https://wa.me/59894660195?text=Hola%20STILLSET9!%20Quiero%20jugar%20contigo%20%F0%9F%8E%AE" target="_blank" class="btn-whatsapp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            WhatsApp
+          </a>
+          <a href="https://steamcommunity.com/profiles/76561198394473726" target="_blank" class="btn-steam-play">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.606 0 11.979 0z"/>
+            </svg>
+            Agregar en Steam
+          </a>
+        </div>
+        <p class="playwithme-note">💬 Mencioná que venís de la página para mayor rapidez de respuesta</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin:0 auto;"></div>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer>
+    <div class="footer-name">STILLSET9</div>
+
+    <div class="footer-links">
+      <a href="https://www.twitch.tv/stillset9i" target="_blank" class="footer-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#9146ff"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+        Twitch
+      </a>
+      <a href="https://www.instagram.com/stillset9pro/" target="_blank" class="footer-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#e1306c"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+      <a href="https://www.tiktok.com/@stillset9" target="_blank" class="footer-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--tiktok-blue)"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.93a8.18 8.18 0 004.78 1.52V7.01a4.85 4.85 0 01-1.01-.32z"/></svg>
+        TikTok
+      </a>
+      <a href="https://steamcommunity.com/profiles/76561198394473726" target="_blank" class="footer-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#66c0f4"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.606 0 11.979 0z"/></svg>
+        Steam
+      </a>
+      <a href="https://wa.me/59894660195" target="_blank" class="footer-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+
+    <p class="footer-copy">Hecho con 💜 para un streamer que no se aburre y no deja aburrir · © Maarteeno 2026</p>
+  </footer>
+
+  <script>
+    // ─── VISITOR COUNTER ───
+    (function() {
+      const el = document.getElementById('visitor-num');
+      // Start with a believable base number
+      let count = Math.floor(Math.random() * 18) + 24; // 24-41 initial viewers
+      el.textContent = count;
+
+      function tick() {
+        // Slow, organic growth: mostly stays, sometimes +1, rarely +2
+        const roll = Math.random();
+        if (roll < 0.04) {
+          // occasionally drop by 1 (feels real)
+          count = Math.max(count - 1, 20);
+        } else if (roll < 0.22) {
+          count += 1;
+        } else if (roll < 0.28) {
+          count += 2;
+        }
+        // Animate the number change
+        el.style.transform = 'scale(1.15)';
+        el.style.color = '#4ade80';
+        el.textContent = count;
+        setTimeout(() => {
+          el.style.transform = 'scale(1)';
+          el.style.color = '#22c55e';
+        }, 250);
+
+        // Next tick: between 8 and 22 seconds
+        setTimeout(tick, 8000 + Math.random() * 14000);
+      }
+
+      // First update after a natural delay
+      setTimeout(tick, 4000 + Math.random() * 6000);
+
+      // Add transition for smooth animation
+      el.style.transition = 'transform 0.25s ease, color 0.25s ease';
+    })();
+
+    // ─── STARS PARTICLE SYSTEM ───
+    (function() {
+      const canvas = document.getElementById('stars-canvas');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const COUNT = 180;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function initStars() {
+        stars = [];
+        for (let i = 0; i < COUNT; i++) {
+          stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.5 + 0.3,
+            alpha: Math.random() * 0.6 + 0.1,
+            speed: Math.random() * 0.15 + 0.02,
+            drift: (Math.random() - 0.5) * 0.08,
+            twinkle: Math.random() * Math.PI * 2,
+            twinkleSpeed: Math.random() * 0.02 + 0.005,
+            color: (() => {
+              const r = Math.random();
+              if (r < 0.15) return '#9b5de5';
+              if (r < 0.25) return '#00f5ff';
+              return '#ffffff';
+            })()
+          });
+        }
+      }
+
+      function drawStars(t) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          s.twinkle += s.twinkleSpeed;
+          const alpha = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = s.color;
+          ctx.globalAlpha = alpha;
+          ctx.fill();
+          s.y -= s.speed;
+          s.x += s.drift;
+          if (s.y < -2) { s.y = canvas.height + 2; s.x = Math.random() * canvas.width; }
+        });
+        ctx.globalAlpha = 1;
+      }
+
+      let raf;
+      function loop(t) {
+        drawStars(t);
+        raf = requestAnimationFrame(loop);
+      }
+
+      resize();
+      initStars();
+      loop(0);
+
+      window.addEventListener('resize', () => { resize(); initStars(); });
+    })();
+
+    // ─── SCROLL FADE IN ───
+    (function() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+          if (e.isIntersecting) {
+            setTimeout(() => e.target.classList.add('visible'), i * 80);
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    })();
+  </script>
+</body>
+</html>
