@@ -1004,6 +1004,223 @@
       .countdown-grid { gap: 0.5rem; }
       .cd-num { font-size: 2rem; min-width: 54px; }
     }
+    /* ── MODAL SHARED ── */
+    .modal-box {
+      background: var(--panel);
+      border: 1px solid rgba(155,93,229,0.25);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      max-width: 380px;
+      width: 90%;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 0 80px rgba(155,93,229,0.2);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: rgba(255,255,255,0.08);
+      border: none; color: var(--muted);
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.85rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-close:hover { background: rgba(255,0,110,0.2); color: var(--magenta); }
+
+    /* ── DONATE MODAL ── */
+    .mp-logo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.4rem;
+    }
+    .mp-wordmark {
+      display: flex;
+      gap: 0.3rem;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .mp-word-mercado { color: #009ee3; }
+    .mp-word-pago    { color: #00b1ea; }
+    .modal-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+      margin-bottom: 0.4rem;
+      background: linear-gradient(135deg, var(--gold), var(--magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .modal-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .modal-footer-note { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.8rem; }
+    .modal-footer-note a { color: var(--violet); text-decoration: none; }
+    .modal-footer-note a:hover { text-decoration: underline; }
+    .btn-mp-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, #009ee3, #007ab8);
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 13px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: 0 0 20px rgba(0,158,227,0.35);
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.2rem;
+    }
+    .btn-mp-link:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(0,158,227,0.55); filter: brightness(1.08); }
+
+    /* ── ADMIN PANEL ── */
+    .admin-box { max-width: 420px; }
+    .admin-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+    .admin-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+      margin-bottom: 0.3rem;
+      color: var(--text);
+    }
+    .admin-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .pin-dots {
+      display: flex; gap: 0.8rem; justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .pin-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid rgba(155,93,229,0.4);
+      background: transparent;
+      transition: all 0.2s;
+    }
+    .pin-dot.filled { background: var(--violet); border-color: var(--violet); box-shadow: 0 0 8px var(--violet-glow); }
+    .pin-dot.error  { background: var(--magenta); border-color: var(--magenta); animation: shake 0.3s ease; }
+    @keyframes shake {
+      0%,100%{transform:translateX(0);}
+      25%{transform:translateX(-4px);}
+      75%{transform:translateX(4px);}
+    }
+    .numpad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      max-width: 240px;
+      margin: 0 auto;
+    }
+    .num-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.9rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .num-btn:hover { background: rgba(155,93,229,0.15); border-color: var(--violet); }
+    .num-btn:active { transform: scale(0.94); }
+    .num-clear { color: var(--muted); }
+    .num-ok { background: rgba(155,93,229,0.2); border-color: rgba(155,93,229,0.4); color: var(--violet); }
+    .num-ok:hover { background: var(--violet); color: white; }
+    .admin-form { text-align: left; }
+    .admin-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+      margin-top: 1rem;
+      letter-spacing: 0.05em;
+    }
+    .admin-input {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      padding: 0.65rem 0.9rem;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .admin-input:focus { border-color: var(--violet); }
+    .admin-input::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.5; }
+    .admin-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1rem;
+      gap: 1rem;
+    }
+    .toggle-wrap { display: flex; align-items: center; gap: 0.6rem; cursor: pointer; }
+    .toggle-track {
+      width: 44px; height: 24px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      position: relative;
+      transition: background 0.3s;
+    }
+    .toggle-track.on { background: var(--magenta); border-color: var(--magenta); }
+    .toggle-thumb {
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: white;
+      transition: transform 0.3s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    .toggle-track.on .toggle-thumb { transform: translateX(20px); }
+    .admin-save-btn {
+      width: 100%;
+      margin-top: 1.5rem;
+      background: linear-gradient(135deg, var(--violet), #7a3fc5);
+      color: white;
+      border: none;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 0 20px var(--violet-glow);
+    }
+    .admin-save-btn:hover { transform: translateY(-2px); box-shadow: 0 0 32px var(--violet-glow); }
+    .admin-reset-btn {
+      width: 100%;
+      margin-top: 0.6rem;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .admin-reset-btn:hover { border-color: var(--magenta); color: var(--magenta); }
   </style>
 </head>
 <body>
@@ -1118,8 +1335,8 @@
         <div class="offline-sub">Seguilo en Twitch para no perderte nada</div>
       </div>
       <div id="embed-container" style="display:none;">
-        <iframe
-          src="https://player.twitch.tv/?channel=stillset9i&parent=localhost&parent=127.0.0.1&autoplay=false&muted=true"
+        <iframe id="twitch-iframe"
+          src=""
           allowfullscreen>
         </iframe>
       </div>
@@ -1143,7 +1360,7 @@
       <p class="section-label">Próximo stream</p>
       <h2 class="section-title fade-in">Cuenta <span style="background:linear-gradient(135deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">regresiva</span></h2>
       <div class="countdown-card fade-in">
-        <div class="countdown-label">⏱ El caos comienza en</div>
+        <div class="countdown-label" id="countdown-game-label">⏱ El caos comienza en</div>
         <div class="countdown-grid">
           <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-label">Días</span></div>
           <div class="cd-sep">:</div>
@@ -1368,9 +1585,9 @@
     <div class="support-grid">
       <div class="support-card fade-in">
         <div class="support-icon donate">💰</div>
-        <h3>Donar</h3>
-        <p>Tirá bits o una donación directa. Aparecés en pantalla, se lee en vivo.</p>
-        <a href="https://www.twitch.tv/stillset9i" target="_blank" class="btn-donate">⚡ Donar ahora</a>
+        <h3>Donar vía Mercado Pago</h3>
+        <p>Apoyá el canal directo con tu celular. Escaneá el QR y listo.</p>
+        <button onclick="openDonateModal()" class="btn-donate">⚡ Ver QR de Donación</button>
       </div>
       <div class="support-card fade-in">
         <div class="support-icon sub">⭐</div>
@@ -1417,6 +1634,98 @@
     </div>
   </section>
 
+  <!-- ═══ DONATE MODAL ═══ -->
+  <div id="donate-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeDonateModal()">✕</button>
+      <div class="mp-logo-wrap">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="32" fill="#009ee3"/>
+          <path d="M14 28c0-9.941 8.059-18 18-18s18 8.059 18 18c0 6.627-3.582 12.421-8.91 15.573V46H22.91v-2.427C17.582 40.421 14 34.627 14 28z" fill="white"/>
+          <rect x="22" y="46" width="20" height="3" rx="1.5" fill="white"/>
+          <rect x="25" y="49" width="14" height="3" rx="1.5" fill="white"/>
+        </svg>
+        <div class="mp-wordmark">
+          <span class="mp-word-mercado">mercado</span>
+          <span class="mp-word-pago">pago</span>
+        </div>
+      </div>
+      <p class="modal-title">Donar a STILLSET9</p>
+      <p class="modal-sub">Apoyá el canal directo desde Mercado Pago.<br/>Rápido, seguro y sin vueltas.</p>
+      <a href="https://link.mercadopago.com.uy/stillset9" target="_blank" class="btn-mp-link">
+        <svg width="20" height="20" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="32" fill="white" fill-opacity="0.2"/><path d="M14 28c0-9.941 8.059-18 18-18s18 8.059 18 18c0 6.627-3.582 12.421-8.91 15.573V46H22.91v-2.427C17.582 40.421 14 34.627 14 28z" fill="white"/><rect x="22" y="46" width="20" height="3" rx="1.5" fill="white"/><rect x="25" y="49" width="14" height="3" rx="1.5" fill="white"/></svg>
+        Donar con Mercado Pago
+      </a>
+      <p class="modal-footer-note">También podés apoyar con <a href="https://www.twitch.tv/stillset9i" target="_blank">Bits en Twitch ↗</a></p>
+    </div>
+  </div>
+
+  <!-- ═══ ADMIN PANEL ═══ -->
+  <div id="admin-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);align-items:center;justify-content:center;">
+    <div class="modal-box admin-box">
+      <button class="modal-close" onclick="closeAdmin()">✕</button>
+
+      <!-- PIN Screen -->
+      <div id="admin-pin-screen">
+        <div class="admin-icon">🔐</div>
+        <p class="admin-title">Panel Admin</p>
+        <p class="admin-sub">Ingresá tu PIN para continuar</p>
+        <div class="pin-dots" id="pin-dots">
+          <div class="pin-dot" id="dot-0"></div>
+          <div class="pin-dot" id="dot-1"></div>
+          <div class="pin-dot" id="dot-2"></div>
+          <div class="pin-dot" id="dot-3"></div>
+        </div>
+        <div class="numpad">
+          <button class="num-btn" onclick="pinPress('1')">1</button>
+          <button class="num-btn" onclick="pinPress('2')">2</button>
+          <button class="num-btn" onclick="pinPress('3')">3</button>
+          <button class="num-btn" onclick="pinPress('4')">4</button>
+          <button class="num-btn" onclick="pinPress('5')">5</button>
+          <button class="num-btn" onclick="pinPress('6')">6</button>
+          <button class="num-btn" onclick="pinPress('7')">7</button>
+          <button class="num-btn" onclick="pinPress('8')">8</button>
+          <button class="num-btn" onclick="pinPress('9')">9</button>
+          <button class="num-btn num-clear" onclick="pinClear()">⌫</button>
+          <button class="num-btn" onclick="pinPress('0')">0</button>
+          <button class="num-btn num-ok" onclick="pinSubmit()">OK</button>
+        </div>
+        <p id="pin-error" style="color:#ff006e;font-size:0.75rem;margin-top:0.5rem;min-height:1rem;"></p>
+      </div>
+
+      <!-- Admin Controls (after PIN) -->
+      <div id="admin-controls" style="display:none;">
+        <div class="admin-icon">⚙️</div>
+        <p class="admin-title">Control de Stream</p>
+        <p class="admin-sub">Configurá el countdown del próximo stream</p>
+
+        <div class="admin-form">
+          <label class="admin-label">📅 Fecha y hora del próximo stream</label>
+          <input type="datetime-local" id="stream-datetime" class="admin-input"/>
+
+          <label class="admin-label">🎮 Juego a streamear</label>
+          <input type="text" id="stream-game" class="admin-input" placeholder="ej: Call of Duty BO2"/>
+
+          <div class="admin-toggle-row">
+            <label class="admin-label" style="margin:0">🔴 ¿Está en vivo ahora?</label>
+            <div class="toggle-wrap" onclick="toggleLive()">
+              <div class="toggle-track" id="live-track">
+                <div class="toggle-thumb" id="live-thumb"></div>
+              </div>
+              <span id="live-toggle-label" style="font-size:0.78rem;color:var(--muted);">Offline</span>
+            </div>
+          </div>
+
+          <button class="admin-save-btn" onclick="saveAdminSettings()">💾 Guardar cambios</button>
+          <button class="admin-reset-btn" onclick="resetCountdown()">🔄 Resetear countdown (mostrar 0)</button>
+        </div>
+        <p id="admin-status" style="font-size:0.75rem;color:var(--green);margin-top:0.5rem;min-height:1rem;text-align:center;"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin trigger (hidden gear in footer area, triple-click on copyright) -->
+
   <!-- ═══ FOOTER ═══ -->
   <footer>
     <div class="footer-name">STILLSET9</div>
@@ -1442,7 +1751,7 @@
         WhatsApp
       </a>
     </div>
-    <p class="footer-copy">Hecho con 💜 para un streamer que no se aburre y no deja aburrir · © Maarteeno 2026</p>
+    <p class="footer-copy" id="footer-copy-trigger" onclick="adminClickTrigger()" style="cursor:default;">Hecho con 💜 para un streamer que no se aburre y no deja aburrir · © Maarteeno 2026</p>
   </footer>
 
   <script>
@@ -1502,17 +1811,20 @@
     setTimeout(tick, 4000+Math.random()*6000);
   })();
 
-  // ── LIVE BANNER SIMULATION ──
-  // Set to true to test the live mode, false = offline
-  const IS_LIVE = false;
-  (function(){
-    if(IS_LIVE){
-      document.getElementById('live-banner').classList.add('show');
-      document.getElementById('hero-live-badge').style.display='block';
+  // ── LIVE STATE (driven by admin panel) ──
+  let isLive = JSON.parse(localStorage.getItem('ss9_live') || 'false');
+  function applyLiveState(){
+    const banner = document.getElementById('live-banner');
+    const badge  = document.getElementById('hero-live-badge');
+    if(isLive){
+      banner.classList.add('show');
+      badge.style.display='block';
     } else {
-      document.getElementById('hero-live-badge').style.display='none';
+      banner.classList.remove('show');
+      badge.style.display='none';
     }
-  })();
+  }
+  applyLiveState();
 
   // ── TWITCH EMBED TOGGLE ──
   let embedLoaded = false;
@@ -1520,13 +1832,18 @@
     const btn=document.getElementById('embed-toggle');
     const offline=document.getElementById('offline-state');
     const embedDiv=document.getElementById('embed-container');
+    const iframe=document.getElementById('twitch-iframe');
     if(!embedLoaded){
+      // Build src dynamically so the parent domain always matches
+      const host = window.location.hostname || 'localhost';
+      iframe.src = `https://player.twitch.tv/?channel=stillset9i&parent=${host}&autoplay=false&muted=true`;
       offline.style.display='none';
       embedDiv.style.display='block';
       btn.classList.add('active');
       btn.textContent='⏹ Ocultar stream';
       embedLoaded=true;
     } else {
+      iframe.src='';
       offline.style.display='flex';
       embedDiv.style.display='none';
       btn.classList.remove('active');
@@ -1535,43 +1852,175 @@
     }
   }
 
-  // ── COUNTDOWN to next stream day ──
-  (function(){
-    const streamDays=[1,3,5,6]; // Mon, Wed, Fri, Sat
-    const streamHour=20; // 8pm
-    function getNext(){
-      const now=new Date();
-      const today=now.getDay();
-      // Mark today chip
-      document.querySelectorAll('.day-chip').forEach(c=>{
-        c.classList.toggle('today', parseInt(c.dataset.day)===today);
-      });
-      let minDiff=Infinity, target=null;
-      for(let i=0;i<14;i++){
-        const d=new Date(now);
-        d.setDate(d.getDate()+i);
-        d.setHours(streamHour,0,0,0);
-        if(d>now && streamDays.includes(d.getDay())){
-          const diff=d-now;
-          if(diff<minDiff){ minDiff=diff; target=d; }
-        }
-      }
-      return target;
+  // ── COUNTDOWN (admin-controlled) ──
+  let countdownTarget = localStorage.getItem('ss9_countdown') ? new Date(localStorage.getItem('ss9_countdown')) : null;
+  let countdownGame   = localStorage.getItem('ss9_game') || '';
+  let countdownReset  = JSON.parse(localStorage.getItem('ss9_reset') || 'false');
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function updateCountdown(){
+    const dEl=document.getElementById('cd-d');
+    const hEl=document.getElementById('cd-h');
+    const mEl=document.getElementById('cd-m');
+    const sEl=document.getElementById('cd-s');
+    const labelEl=document.getElementById('countdown-game-label');
+
+    // If reset or no target → show zeros
+    if(countdownReset || !countdownTarget || isNaN(countdownTarget)){
+      dEl.textContent='00'; hEl.textContent='00';
+      mEl.textContent='00'; sEl.textContent='00';
+      if(labelEl) labelEl.textContent='No hay stream programado por ahora';
+      return;
     }
-    function pad(n){ return String(n).padStart(2,'0'); }
-    function update(){
-      const t=getNext();
-      if(!t) return;
-      const diff=t-new Date();
-      const s=Math.floor(diff/1000);
-      document.getElementById('cd-d').textContent=pad(Math.floor(s/86400));
-      document.getElementById('cd-h').textContent=pad(Math.floor((s%86400)/3600));
-      document.getElementById('cd-m').textContent=pad(Math.floor((s%3600)/60));
-      document.getElementById('cd-s').textContent=pad(s%60);
+
+    const diff = countdownTarget - new Date();
+    if(diff <= 0){
+      dEl.textContent='00'; hEl.textContent='00';
+      mEl.textContent='00'; sEl.textContent='00';
+      if(labelEl) labelEl.textContent='¡El stream debería estar comenzando!';
+      return;
     }
-    update();
-    setInterval(update,1000);
-  })();
+    const s = Math.floor(diff/1000);
+    dEl.textContent=pad(Math.floor(s/86400));
+    hEl.textContent=pad(Math.floor((s%86400)/3600));
+    mEl.textContent=pad(Math.floor((s%3600)/60));
+    sEl.textContent=pad(s%60);
+    if(labelEl && countdownGame) labelEl.textContent=`🎮 Jugando: ${countdownGame}`;
+    else if(labelEl) labelEl.textContent='⏱ El caos comienza en';
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ── DONATE MODAL ──
+  function openDonateModal(){
+    const m=document.getElementById('donate-modal');
+    m.style.display='flex';
+    document.body.style.overflow='hidden';
+  }
+  function closeDonateModal(){
+    document.getElementById('donate-modal').style.display='none';
+    document.body.style.overflow='';
+  }
+  document.getElementById('donate-modal').addEventListener('click', function(e){
+    if(e.target===this) closeDonateModal();
+  });
+
+  // ── ADMIN PANEL ──
+  let adminClickCount=0, adminClickTimer=null;
+  function adminClickTrigger(){
+    adminClickCount++;
+    clearTimeout(adminClickTimer);
+    adminClickTimer=setTimeout(()=>{ adminClickCount=0; },600);
+    if(adminClickCount>=5){ adminClickCount=0; openAdmin(); }
+  }
+
+  function openAdmin(){
+    document.getElementById('admin-modal').style.display='flex';
+    document.getElementById('admin-pin-screen').style.display='block';
+    document.getElementById('admin-controls').style.display='none';
+    pinValue='';
+    updatePinDots();
+    document.getElementById('pin-error').textContent='';
+    document.body.style.overflow='hidden';
+    // Pre-fill fields if already set
+    if(countdownTarget && !isNaN(countdownTarget)){
+      const localStr = new Date(countdownTarget.getTime() - countdownTarget.getTimezoneOffset()*60000).toISOString().slice(0,16);
+      document.getElementById('stream-datetime').value = localStr;
+    }
+    document.getElementById('stream-game').value = countdownGame;
+    // Live toggle
+    const track=document.getElementById('live-track');
+    const lbl=document.getElementById('live-toggle-label');
+    if(isLive){ track.classList.add('on'); lbl.textContent='En vivo 🔴'; }
+    else { track.classList.remove('on'); lbl.textContent='Offline'; }
+  }
+  function closeAdmin(){
+    document.getElementById('admin-modal').style.display='none';
+    document.body.style.overflow='';
+    pinValue='';
+  }
+  document.getElementById('admin-modal').addEventListener('click', function(e){
+    if(e.target===this) closeAdmin();
+  });
+
+  // PIN logic
+  let pinValue='';
+  const CORRECT_PIN='1292';
+  function updatePinDots(){
+    for(let i=0;i<4;i++){
+      const d=document.getElementById('dot-'+i);
+      d.classList.toggle('filled', i<pinValue.length);
+      d.classList.remove('error');
+    }
+  }
+  function pinPress(n){
+    if(pinValue.length>=4) return;
+    pinValue+=n;
+    updatePinDots();
+    if(pinValue.length===4) setTimeout(pinSubmit,150);
+  }
+  function pinClear(){
+    if(pinValue.length>0) pinValue=pinValue.slice(0,-1);
+    updatePinDots();
+  }
+  function pinSubmit(){
+    if(pinValue===CORRECT_PIN){
+      document.getElementById('admin-pin-screen').style.display='none';
+      document.getElementById('admin-controls').style.display='block';
+      document.getElementById('pin-error').textContent='';
+    } else {
+      document.getElementById('pin-error').textContent='PIN incorrecto. Intentá de nuevo.';
+      for(let i=0;i<4;i++) document.getElementById('dot-'+i).classList.add('error');
+      setTimeout(()=>{ pinValue=''; updatePinDots(); },700);
+    }
+  }
+
+  // Live toggle in admin
+  function toggleLive(){
+    isLive=!isLive;
+    const track=document.getElementById('live-track');
+    const lbl=document.getElementById('live-toggle-label');
+    if(isLive){ track.classList.add('on'); lbl.textContent='En vivo 🔴'; }
+    else { track.classList.remove('on'); lbl.textContent='Offline'; }
+  }
+
+  // Save admin settings
+  function saveAdminSettings(){
+    const dtVal=document.getElementById('stream-datetime').value;
+    const gameVal=document.getElementById('stream-game').value.trim();
+
+    if(dtVal){
+      countdownTarget=new Date(dtVal);
+      countdownReset=false;
+      localStorage.setItem('ss9_countdown', countdownTarget.toISOString());
+      localStorage.setItem('ss9_reset','false');
+    }
+    countdownGame=gameVal;
+    localStorage.setItem('ss9_game', gameVal);
+    localStorage.setItem('ss9_live', JSON.stringify(isLive));
+    applyLiveState();
+    updateCountdown();
+
+    const st=document.getElementById('admin-status');
+    st.textContent='✅ Guardado correctamente';
+    setTimeout(()=>{ st.textContent=''; },2500);
+  }
+
+  function resetCountdown(){
+    countdownTarget=null;
+    countdownReset=true;
+    countdownGame='';
+    localStorage.removeItem('ss9_countdown');
+    localStorage.setItem('ss9_reset','true');
+    localStorage.removeItem('ss9_game');
+    document.getElementById('stream-datetime').value='';
+    document.getElementById('stream-game').value='';
+    updateCountdown();
+    const st=document.getElementById('admin-status');
+    st.textContent='🔄 Countdown reseteado a 0';
+    setTimeout(()=>{ st.textContent=''; },2500);
+  }
 
   // ── SCROLL FADE IN ──
   (function(){
