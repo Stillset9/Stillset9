@@ -1221,6 +1221,182 @@
       transition: all 0.2s;
     }
     .admin-reset-btn:hover { border-color: var(--magenta); color: var(--magenta); }
+    /* ── STREAM CARDS ── */
+    .stream-cards-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      transition: all 0.5s ease;
+    }
+    @media (max-width: 640px) { .stream-cards-wrap { grid-template-columns: 1fr; } }
+
+    .stream-platform-card {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.25,0.8,0.25,1);
+      display: flex;
+      flex-direction: column;
+    }
+    .stream-platform-card.is-live {
+      border-color: rgba(255,0,110,0.4);
+      box-shadow: 0 0 40px rgba(255,0,110,0.15);
+      order: -1;
+    }
+    .stream-platform-card.is-live.twitch-live {
+      border-color: rgba(145,70,255,0.5);
+      box-shadow: 0 0 40px rgba(145,70,255,0.2);
+    }
+    .stream-platform-card.is-live.tiktok-live {
+      border-color: rgba(0,242,234,0.4);
+      box-shadow: 0 0 40px rgba(0,242,234,0.15);
+    }
+
+    .stream-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.2rem;
+    }
+    .twitch-header { background: rgba(145,70,255,0.15); border-bottom: 1px solid rgba(145,70,255,0.2); }
+    .tiktok-header { background: rgba(0,242,234,0.08); border-bottom: 1px solid rgba(0,242,234,0.15); }
+
+    .stream-card-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .stream-live-badge {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: white;
+      background: var(--magenta);
+      padding: 3px 10px;
+      border-radius: 100px;
+      animation: pulse-badge 1.5s ease-in-out infinite;
+    }
+    .stream-offline-badge {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .stream-card-body {
+      flex: 1;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .stream-offline-state {
+      text-align: center;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .stream-offline-icon { font-size: 2.2rem; opacity: 0.4; }
+    .stream-offline-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .stream-offline-sub { font-size: 0.72rem; color: rgba(107,107,138,0.6); }
+    .stream-embed-area { width: 100%; }
+    .tiktok-live-msg {
+      text-align: center;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stream-card-footer {
+      padding: 0.9rem 1.2rem;
+      display: flex;
+      gap: 0.6rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .stream-card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s;
+      border: none;
+    }
+    .twitch-btn {
+      background: rgba(145,70,255,0.2);
+      border: 1px solid rgba(145,70,255,0.35);
+      color: var(--twitch);
+    }
+    .twitch-btn:hover { background: rgba(145,70,255,0.35); }
+    .tiktok-btn {
+      background: rgba(0,242,234,0.1);
+      border: 1px solid rgba(0,242,234,0.3);
+      color: var(--tiktok-blue);
+    }
+    .tiktok-btn:hover { background: rgba(0,242,234,0.2); }
+    .stream-card-link {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted);
+      margin-left: auto;
+    }
+    .stream-card-link:hover { border-color: rgba(255,255,255,0.25); color: var(--text); }
+
+    /* ── PLATFORM SELECTOR (admin) ── */
+    .platform-selector {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+    .plat-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 10px 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .plat-btn:hover { border-color: rgba(155,93,229,0.4); color: var(--text); }
+    .plat-btn.active-plat { border-color: var(--violet); background: rgba(155,93,229,0.2); color: white; }
+    .plat-btn#plat-twitch.active-plat { border-color: var(--twitch); background: rgba(145,70,255,0.2); }
+    .plat-btn#plat-tiktok.active-plat { border-color: var(--tiktok-blue); background: rgba(0,242,234,0.12); color: var(--tiktok-blue); }
+    .plat-btn#plat-none.active-plat  { border-color: var(--magenta); background: rgba(255,0,110,0.15); color: var(--magenta); }
+    .plat-btn#plat-both.active-plat  { border-color: var(--gold); background: rgba(249,199,79,0.12); color: var(--gold); }
   </style>
 </head>
 <body>
@@ -1321,34 +1497,77 @@
     </div>
   </div>
 
-  <!-- ═══ LIVE STREAM EMBED ═══ -->
+  <!-- ═══ LIVE STREAM ═══ -->
   <section class="live-section" id="stream">
-    <p class="section-label">Twitch · En vivo</p>
+    <p class="section-label" id="stream-section-label">Twitch & TikTok · En vivo</p>
     <h2 class="section-title fade-in">El <span style="background:linear-gradient(135deg,var(--twitch),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">stream</span></h2>
-    <p class="section-sub fade-in">El canal en tiempo real. Cuando está live, lo ves acá mismo.</p>
+    <p class="section-sub fade-in">Streameando en Twitch y TikTok. La plataforma activa aparece primero.</p>
 
-    <div class="live-embed-wrap fade-in" id="embed-wrap">
-      <!-- Offline state by default, JS switches to embed if desired -->
-      <div class="offline-state" id="offline-state">
-        <div class="offline-icon">📡</div>
-        <div class="offline-title">Canal offline por ahora</div>
-        <div class="offline-sub">Seguilo en Twitch para no perderte nada</div>
+    <div class="stream-cards-wrap" id="stream-cards-wrap">
+
+      <!-- TWITCH CARD -->
+      <div class="stream-platform-card" id="card-twitch">
+        <div class="stream-card-header twitch-header">
+          <div class="stream-card-logo">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+            <span>Twitch</span>
+          </div>
+          <div class="stream-live-badge" id="twitch-live-badge" style="display:none;">● EN VIVO</div>
+          <div class="stream-offline-badge" id="twitch-offline-badge">○ OFFLINE</div>
+        </div>
+        <div class="stream-card-body" id="twitch-card-body">
+          <div class="stream-offline-state" id="twitch-offline-state">
+            <div class="stream-offline-icon">📡</div>
+            <div class="stream-offline-title">stillset9i</div>
+            <div class="stream-offline-sub">Offline por ahora</div>
+          </div>
+          <div class="stream-embed-area" id="twitch-embed-area" style="display:none;">
+            <iframe id="twitch-iframe" src="" allowfullscreen style="width:100%;aspect-ratio:16/9;border:none;display:block;"></iframe>
+          </div>
+        </div>
+        <div class="stream-card-footer">
+          <button class="stream-card-btn twitch-btn" id="twitch-load-btn" onclick="loadTwitch()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+            Cargar stream
+          </button>
+          <a href="https://www.twitch.tv/stillset9i" target="_blank" class="stream-card-btn stream-card-link">Abrir ↗</a>
+        </div>
       </div>
-      <div id="embed-container" style="display:none;">
-        <iframe id="twitch-iframe"
-          src=""
-          allowfullscreen>
-        </iframe>
+
+      <!-- TIKTOK CARD -->
+      <div class="stream-platform-card" id="card-tiktok">
+        <div class="stream-card-header tiktok-header">
+          <div class="stream-card-logo">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.93a8.18 8.18 0 004.78 1.52V7.01a4.85 4.85 0 01-1.01-.32z"/></svg>
+            <span>TikTok</span>
+          </div>
+          <div class="stream-live-badge" id="tiktok-live-badge" style="display:none;">● EN VIVO</div>
+          <div class="stream-offline-badge" id="tiktok-offline-badge">○ OFFLINE</div>
+        </div>
+        <div class="stream-card-body">
+          <div class="stream-offline-state" id="tiktok-offline-state">
+            <div class="stream-offline-icon">📱</div>
+            <div class="stream-offline-title">@stillset9</div>
+            <div class="stream-offline-sub">Offline por ahora</div>
+          </div>
+          <div class="stream-embed-area" id="tiktok-live-area" style="display:none;">
+            <!-- TikTok live embed placeholder - when live, show link to open -->
+            <div class="tiktok-live-msg">
+              <div style="font-size:2.5rem;margin-bottom:0.8rem;">📱</div>
+              <div style="font-family:'Orbitron',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:0.5rem;color:var(--tiktok-blue);">¡EN VIVO EN TIKTOK!</div>
+              <a href="https://www.tiktok.com/@stillset9/live" target="_blank" class="stream-card-btn tiktok-btn" style="margin-top:0.5rem;display:inline-flex;">Ver en TikTok ↗</a>
+            </div>
+          </div>
+        </div>
+        <div class="stream-card-footer">
+          <a href="https://www.tiktok.com/@stillset9" target="_blank" class="stream-card-btn tiktok-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.93a8.18 8.18 0 004.78 1.52V7.01a4.85 4.85 0 01-1.01-.32z"/></svg>
+            Ver perfil
+          </a>
+          <a href="https://www.tiktok.com/@stillset9/live" target="_blank" class="stream-card-btn stream-card-link">Live ↗</a>
+        </div>
       </div>
-    </div>
-    <div class="stream-toggle-row">
-      <button class="btn-live-toggle" id="embed-toggle" onclick="toggleEmbed()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
-        Cargar stream
-      </button>
-      <a href="https://www.twitch.tv/stillset9i" target="_blank" class="btn-live-toggle">
-        Abrir en Twitch ↗
-      </a>
+
     </div>
   </section>
 
@@ -1584,10 +1803,15 @@
     <p class="section-sub fade-in">Cada follow, sub y donación mantiene el stream vivo. Si te divertís, devolvé el caos.</p>
     <div class="support-grid">
       <div class="support-card fade-in">
-        <div class="support-icon donate">💰</div>
+        <div class="support-icon donate">
+          <img src="https://http2.mlstatic.com/frontend-assets/mp-web-navigation/ui-navigation/6.6.66/mercadopago/logo__small@2x.png" alt="Mercado Pago" style="width:40px;height:40px;object-fit:contain;" onerror="this.outerHTML='💰'"/>
+        </div>
         <h3>Donar vía Mercado Pago</h3>
-        <p>Apoyá el canal directo con tu celular. Escaneá el QR y listo.</p>
-        <button onclick="openDonateModal()" class="btn-donate">⚡ Ver QR de Donación</button>
+        <p>Apoyá el canal de forma rápida y segura. Un clic y listo.</p>
+        <button onclick="openDonateModal()" class="btn-donate">
+          <img src="https://http2.mlstatic.com/frontend-assets/mp-web-navigation/ui-navigation/6.6.66/mercadopago/logo__small@2x.png" alt="MP" style="width:18px;height:18px;object-fit:contain;border-radius:3px;" onerror="this.style.display='none'"/>
+          Donar con Mercado Pago
+        </button>
       </div>
       <div class="support-card fade-in">
         <div class="support-icon sub">⭐</div>
@@ -1653,7 +1877,7 @@
       <p class="modal-title">Donar a STILLSET9</p>
       <p class="modal-sub">Apoyá el canal directo desde Mercado Pago.<br/>Rápido, seguro y sin vueltas.</p>
       <a href="https://link.mercadopago.com.uy/stillset9" target="_blank" class="btn-mp-link">
-        <svg width="20" height="20" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="32" fill="white" fill-opacity="0.2"/><path d="M14 28c0-9.941 8.059-18 18-18s18 8.059 18 18c0 6.627-3.582 12.421-8.91 15.573V46H22.91v-2.427C17.582 40.421 14 34.627 14 28z" fill="white"/><rect x="22" y="46" width="20" height="3" rx="1.5" fill="white"/><rect x="25" y="49" width="14" height="3" rx="1.5" fill="white"/></svg>
+        <img src="https://http2.mlstatic.com/frontend-assets/mp-web-navigation/ui-navigation/6.6.66/mercadopago/logo__small@2x.png" alt="MP" style="width:22px;height:22px;object-fit:contain;border-radius:4px;" onerror="this.style.display='none'"/>
         Donar con Mercado Pago
       </a>
       <p class="modal-footer-note">También podés apoyar con <a href="https://www.twitch.tv/stillset9i" target="_blank">Bits en Twitch ↗</a></p>
@@ -1697,7 +1921,7 @@
       <div id="admin-controls" style="display:none;">
         <div class="admin-icon">⚙️</div>
         <p class="admin-title">Control de Stream</p>
-        <p class="admin-sub">Configurá el countdown del próximo stream</p>
+        <p class="admin-sub">Configurá el countdown y el estado del stream</p>
 
         <div class="admin-form">
           <label class="admin-label">📅 Fecha y hora del próximo stream</label>
@@ -1706,14 +1930,18 @@
           <label class="admin-label">🎮 Juego a streamear</label>
           <input type="text" id="stream-game" class="admin-input" placeholder="ej: Call of Duty BO2"/>
 
-          <div class="admin-toggle-row">
-            <label class="admin-label" style="margin:0">🔴 ¿Está en vivo ahora?</label>
-            <div class="toggle-wrap" onclick="toggleLive()">
-              <div class="toggle-track" id="live-track">
-                <div class="toggle-thumb" id="live-thumb"></div>
-              </div>
-              <span id="live-toggle-label" style="font-size:0.78rem;color:var(--muted);">Offline</span>
-            </div>
+          <label class="admin-label">📺 ¿Dónde vas a streamear?</label>
+          <div class="platform-selector" id="platform-selector">
+            <button class="plat-btn" id="plat-none" onclick="setPlatform('none')">🔴 Offline</button>
+            <button class="plat-btn" id="plat-twitch" onclick="setPlatform('twitch')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+              Twitch
+            </button>
+            <button class="plat-btn" id="plat-tiktok" onclick="setPlatform('tiktok')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.93a8.18 8.18 0 004.78 1.52V7.01a4.85 4.85 0 01-1.01-.32z"/></svg>
+              TikTok
+            </button>
+            <button class="plat-btn" id="plat-both" onclick="setPlatform('both')">✦ Ambos</button>
           </div>
 
           <button class="admin-save-btn" onclick="saveAdminSettings()">💾 Guardar cambios</button>
@@ -1811,44 +2039,76 @@
     setTimeout(tick, 4000+Math.random()*6000);
   })();
 
-  // ── LIVE STATE (driven by admin panel) ──
-  let isLive = JSON.parse(localStorage.getItem('ss9_live') || 'false');
+  // ── LIVE PLATFORM STATE ──
+  let livePlatform = localStorage.getItem('ss9_platform') || 'none'; // 'none' | 'twitch' | 'tiktok' | 'both'
+  let isLive = livePlatform !== 'none';
+
   function applyLiveState(){
-    const banner = document.getElementById('live-banner');
-    const badge  = document.getElementById('hero-live-badge');
-    if(isLive){
-      banner.classList.add('show');
-      badge.style.display='block';
-    } else {
+    const banner  = document.getElementById('live-banner');
+    const badge   = document.getElementById('hero-live-badge');
+    const cardTw  = document.getElementById('card-twitch');
+    const cardTk  = document.getElementById('card-tiktok');
+    const twLive  = document.getElementById('twitch-live-badge');
+    const twOff   = document.getElementById('twitch-offline-badge');
+    const tkLive  = document.getElementById('tiktok-live-badge');
+    const tkOff   = document.getElementById('tiktok-offline-badge');
+    const twOffS  = document.getElementById('twitch-offline-state');
+    const twEmbed = document.getElementById('twitch-embed-area');
+    const tkOffS  = document.getElementById('tiktok-offline-state');
+    const tkLiveA = document.getElementById('tiktok-live-area');
+
+    // Reset all
+    cardTw.classList.remove('is-live','twitch-live','tiktok-live');
+    cardTk.classList.remove('is-live','twitch-live','tiktok-live');
+    twLive.style.display='none'; twOff.style.display='block';
+    tkLive.style.display='none'; tkOff.style.display='block';
+    twOffS.style.display='flex'; twEmbed.style.display='none';
+    tkOffS.style.display='flex'; tkLiveA.style.display='none';
+
+    if(livePlatform==='none'){
       banner.classList.remove('show');
       badge.style.display='none';
+    } else {
+      banner.classList.add('show');
+      badge.style.display='block';
+      if(livePlatform==='twitch'||livePlatform==='both'){
+        cardTw.classList.add('is-live','twitch-live');
+        twLive.style.display='block'; twOff.style.display='none';
+        tkOffS.style.display='flex'; tkLiveA.style.display='none';
+      }
+      if(livePlatform==='tiktok'||livePlatform==='both'){
+        cardTk.classList.add('is-live','tiktok-live');
+        tkLive.style.display='block'; tkOff.style.display='none';
+        tkOffS.style.display='none'; tkLiveA.style.display='flex';
+      }
+      if(livePlatform==='both'){
+        cardTw.classList.add('is-live','twitch-live');
+        twLive.style.display='block'; twOff.style.display='none';
+      }
     }
   }
   applyLiveState();
 
-  // ── TWITCH EMBED TOGGLE ──
-  let embedLoaded = false;
-  function toggleEmbed(){
-    const btn=document.getElementById('embed-toggle');
-    const offline=document.getElementById('offline-state');
-    const embedDiv=document.getElementById('embed-container');
-    const iframe=document.getElementById('twitch-iframe');
-    if(!embedLoaded){
-      // Build src dynamically so the parent domain always matches
+  // ── TWITCH EMBED ──
+  let twitchLoaded = false;
+  function loadTwitch(){
+    const btn    = document.getElementById('twitch-load-btn');
+    const offS   = document.getElementById('twitch-offline-state');
+    const embed  = document.getElementById('twitch-embed-area');
+    const iframe = document.getElementById('twitch-iframe');
+    if(!twitchLoaded){
       const host = window.location.hostname || 'localhost';
       iframe.src = `https://player.twitch.tv/?channel=stillset9i&parent=${host}&autoplay=false&muted=true`;
-      offline.style.display='none';
-      embedDiv.style.display='block';
-      btn.classList.add('active');
-      btn.textContent='⏹ Ocultar stream';
-      embedLoaded=true;
+      offS.style.display='none';
+      embed.style.display='block';
+      btn.textContent='⏹ Ocultar';
+      twitchLoaded=true;
     } else {
       iframe.src='';
-      offline.style.display='flex';
-      embedDiv.style.display='none';
-      btn.classList.remove('active');
-      btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg> Cargar stream';
-      embedLoaded=false;
+      offS.style.display='flex';
+      embed.style.display='none';
+      btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg> Cargar stream';
+      twitchLoaded=false;
     }
   }
 
@@ -1923,18 +2183,15 @@
     updatePinDots();
     document.getElementById('pin-error').textContent='';
     document.body.style.overflow='hidden';
-    // Pre-fill fields if already set
     if(countdownTarget && !isNaN(countdownTarget)){
       const localStr = new Date(countdownTarget.getTime() - countdownTarget.getTimezoneOffset()*60000).toISOString().slice(0,16);
       document.getElementById('stream-datetime').value = localStr;
     }
     document.getElementById('stream-game').value = countdownGame;
-    // Live toggle
-    const track=document.getElementById('live-track');
-    const lbl=document.getElementById('live-toggle-label');
-    if(isLive){ track.classList.add('on'); lbl.textContent='En vivo 🔴'; }
-    else { track.classList.remove('on'); lbl.textContent='Offline'; }
+    // Highlight active platform
+    setPlatformUI(livePlatform);
   }
+
   function closeAdmin(){
     document.getElementById('admin-modal').style.display='none';
     document.body.style.overflow='';
@@ -1976,20 +2233,19 @@
     }
   }
 
-  // Live toggle in admin
-  function toggleLive(){
-    isLive=!isLive;
-    const track=document.getElementById('live-track');
-    const lbl=document.getElementById('live-toggle-label');
-    if(isLive){ track.classList.add('on'); lbl.textContent='En vivo 🔴'; }
-    else { track.classList.remove('on'); lbl.textContent='Offline'; }
+  // Platform selector
+  function setPlatform(p){ livePlatform=p; setPlatformUI(p); }
+  function setPlatformUI(p){
+    ['none','twitch','tiktok','both'].forEach(id=>{
+      const el=document.getElementById('plat-'+id);
+      if(el) el.classList.toggle('active-plat', id===p);
+    });
   }
 
   // Save admin settings
   function saveAdminSettings(){
     const dtVal=document.getElementById('stream-datetime').value;
     const gameVal=document.getElementById('stream-game').value.trim();
-
     if(dtVal){
       countdownTarget=new Date(dtVal);
       countdownReset=false;
@@ -1997,11 +2253,12 @@
       localStorage.setItem('ss9_reset','false');
     }
     countdownGame=gameVal;
+    isLive = livePlatform !== 'none';
     localStorage.setItem('ss9_game', gameVal);
+    localStorage.setItem('ss9_platform', livePlatform);
     localStorage.setItem('ss9_live', JSON.stringify(isLive));
     applyLiveState();
     updateCountdown();
-
     const st=document.getElementById('admin-status');
     st.textContent='✅ Guardado correctamente';
     setTimeout(()=>{ st.textContent=''; },2500);
@@ -2037,3 +2294,4 @@
   </script>
 </body>
 </html>
+
